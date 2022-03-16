@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 16, 2022 12:06:56 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="ma.fstm.ilisi.gestioncontacts.Model.bo.Type" optimistic-lock="version" schema="public" table="types">
+    <id name="type" type="string">
+      <column length="50" name="type"/>
+      <generator class="identity"/>
+    </id>
+    <set fetch="select" inverse="true" lazy="true" name="contactses" table="contacts">
+      <key>
+        <column length="50" name="type" not-null="true"/>
+      </key>
+      <one-to-many class="ma.fstm.ilisi.gestioncontacts.Model.bo.Contact"/>
+    </set>
+  </class>
+</hibernate-mapping>
