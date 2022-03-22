@@ -4,11 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/Gestion_Contact/src/ma/fstm/ilisi/gestioncontacts/Model/dao/DAOContact.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Gestion_Contact/src/ma/fstm/ilisi/gestioncontacts/Model/bo/Types.hbm.xml</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/Gestion_Contact/src/ma/fstm/ilisi/gestioncontacts/View/APP.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Gestion_Contact/src/ma/fstm/ilisi/gestioncontacts/Model/bo/Contact.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Gestion_Contact/src/ma/fstm/ilisi/gestioncontacts/Model/servise/ContactServise.java</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/Gestion_Contact/src/ma/fstm/ilisi/gestioncontacts/Controller/ContactController.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Gestion_Contact/src/ma/fstm/ilisi/gestioncontacts/Model/bo/Type.java</file>
         </group>
     </open-files>
 </project-private>

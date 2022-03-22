@@ -6,42 +6,26 @@ import ma.fstm.ilisi.gestioncontacts.Model.dao.DAOContact;
 import java.util.LinkedList;
 import java.util.List;
 import ma.fstm.ilisi.gestioncontacts.Model.bo.Type;
+import ma.fstm.ilisi.gestioncontacts.Model.servise.ContactServise;
 
 /**
  *
  * @author hicham
  */
 public class ContactController {
-    List<Contact> contacts =null;
-    public boolean insertContact(String Nom, String Prenom, String tel, String email,String type ){
-        Contact con=new Contact();
-        con.setEmail(email);
-        con.setNom(Nom);
-        con.setTel(tel);
-        con.setPrenom(Prenom);
-        con.setTypes(new Type(type));
-        boolean b= DAOContact.getDAOContact().Create(con);
-        if(b && contacts!=null)
-            contacts.add(con);
-        return b;
+
+    ContactServise servise=new ContactServise();
+    public boolean insertContact(String Nom, String Prenom, String tel, String email ,Type type){
+        return servise.insertContact(Nom,Prenom,tel,email,type);
     }
-    public void updateContact(Contact con, String Nom, String Prenom, String tel, String email,String type ){
-        con.setEmail(email);
-        con.setNom(Nom);
-        con.setTel(tel);
-        con.setPrenom(Prenom);
-        con.setTypes(new Type(type));
-        DAOContact.getDAOContact().update(con);
+    public boolean updateContact(Contact con, String Nom, String Prenom, String tel, String email,Type type ){
+       return  servise.Update_Contact(con, Nom, Prenom, tel, email,type);
     }
     public List<Contact> AllContacts()
     {
-        if(contacts==null)contacts =(List<Contact>) DAOContact.getDAOContact().Retrieve();
-        return contacts;
+        return (List<Contact>) DAOContact.getDAOContact().Retrieve();
     }
-    public boolean  deleteContact(Contact c){
-        boolean b= DAOContact.getDAOContact().delete(c);
-        if(b&& contacts!=null)
-                contacts.remove(c);
-        return b;
+    public boolean deleteContact(Contact c){
+        return servise.deleteContact(c);
     }
 }

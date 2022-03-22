@@ -13,9 +13,13 @@ import java.util.List;
 
 public class DAOContact implements IDAOContact{
     private static DAOContact daoContact=null;
+    private List<Contact> contacts =null;
     public static DAOContact getDAOContact(){
        if(daoContact==null)daoContact=new DAOContact();
        return daoContact;
+    }
+    public static List<Contact> getCache(){
+        return  daoContact.contacts;
     }
     private DAOContact(){
 
@@ -38,11 +42,12 @@ public class DAOContact implements IDAOContact{
 
     @Override
     public Collection<Contact> Retrieve() {
+        if(contacts!=null)return contacts;
         SessionFactory sessionFactory= FabricSession.getSessionFactory();
         Session session= sessionFactory.getCurrentSession();
         session.beginTransaction();
         try {
-           List<Contact> contacts= (List<Contact>) session.createQuery("from Contact").list();
+            contacts= (List<Contact>) session.createQuery("from Contact").list();
            session.close();
            return contacts;
         } catch (HibernateException e) {
@@ -76,8 +81,10 @@ public class DAOContact implements IDAOContact{
             tx.commit();
             return true;
         }catch (HibernateException e){
+            tx.rollback();
             System.err.println(e);
             return false;
         }
     }
+   
 }

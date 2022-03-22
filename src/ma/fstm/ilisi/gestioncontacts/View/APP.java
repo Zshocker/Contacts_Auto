@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package ma.fstm.ilisi.gestioncontacts.View;
-
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import ma.fstm.ilisi.gestioncontacts.Controller.ContactController;
+import ma.fstm.ilisi.gestioncontacts.Controller.TypeController;
 import ma.fstm.ilisi.gestioncontacts.Model.bo.Contact;
+import ma.fstm.ilisi.gestioncontacts.Model.bo.Type;
 
 /**
  *
@@ -18,6 +19,8 @@ import ma.fstm.ilisi.gestioncontacts.Model.bo.Contact;
  */
 public class APP extends javax.swing.JFrame {
     private ContactController controller=new ContactController();
+    private TypeController typecontroller=new TypeController();
+
      private void Refresh_Tables() {
         ComboUpdate.removeAllItems();
         ComboDelete.removeAllItems();
@@ -43,8 +46,12 @@ public class APP extends javax.swing.JFrame {
      */
     public APP() {
         initComponents();
+        for (ma.fstm.ilisi.gestioncontacts.Model.bo.Type types : typecontroller.getAllTypes()) {
+           type.addItem(types);
+           type_up.addItem(types);
+        }
         Add_Contact_butt.addActionListener(e -> {
-            boolean b= controller.insertContact(Nom.getText(),Prenom.getText(), Tel.getText(), Email.getText(),type.getSelectedItem().toString());
+            boolean b= controller.insertContact(Nom.getText(),Prenom.getText(), Tel.getText(), Email.getText(),(ma.fstm.ilisi.gestioncontacts.Model.bo.Type)type.getSelectedItem());
             if(b){
             Nom.setText("");
             Prenom.setText("");
@@ -59,10 +66,13 @@ public class APP extends javax.swing.JFrame {
         Update_Contact_butt.addActionListener(e -> {
             Contact c;
             if((c=(Contact) ComboUpdate.getSelectedItem())!=null){
-            controller.updateContact(c, Nom_up.getText(),Prenom_up.getText(), Tel_up.getText(), Email_up.getText(),type_up.getSelectedItem().toString());
+            boolean b= controller.updateContact(c, Nom_up.getText(),Prenom_up.getText(), Tel_up.getText(), Email_up.getText(), (ma.fstm.ilisi.gestioncontacts.Model.bo.Type) type_up.getSelectedItem());
+            if(b) {
             Refresh_Tables();
-                JOptionPane.showMessageDialog(APP.this, "Done!");
-
+            JOptionPane.showMessageDialog(APP.this, "Done!");
+            }else{
+                JOptionPane.showMessageDialog(APP.this, "Nop!");
+            }
             }
         });
 
@@ -74,7 +84,7 @@ public class APP extends javax.swing.JFrame {
                 Prenom_up.setText(c.getPrenom());
                 Tel_up.setText(c.getTel());
                 Email_up.setText(c.getEmail());
-                type_up.setSelectedItem(c.getTypes().toString());
+                type_up.setSelectedItem(c.getTypes());
             }
         });
         Delete.addActionListener(e -> {
@@ -107,7 +117,7 @@ public class APP extends javax.swing.JFrame {
         Prenom = new javax.swing.JTextField();
         Tel = new javax.swing.JTextField();
         Email = new javax.swing.JTextField();
-        type = new javax.swing.JComboBox<>();
+        type = new javax.swing.JComboBox<ma.fstm.ilisi.gestioncontacts.Model.bo.Type>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -120,7 +130,7 @@ public class APP extends javax.swing.JFrame {
         Prenom_up = new javax.swing.JTextField();
         Tel_up = new javax.swing.JTextField();
         Email_up = new javax.swing.JTextField();
-        type_up = new javax.swing.JComboBox<>();
+        type_up = new javax.swing.JComboBox<ma.fstm.ilisi.gestioncontacts.Model.bo.Type>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -159,7 +169,7 @@ public class APP extends javax.swing.JFrame {
             }
         });
 
-        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Family", "Pro" }));
+        type.setModel(new javax.swing.DefaultComboBoxModel<ma.fstm.ilisi.gestioncontacts.Model.bo.Type>());
 
         jLabel1.setText("Nom");
 
@@ -251,7 +261,7 @@ public class APP extends javax.swing.JFrame {
             }
         });
 
-        type_up.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Family", "Pro" }));
+        type_up.setModel(new javax.swing.DefaultComboBoxModel<ma.fstm.ilisi.gestioncontacts.Model.bo.Type>());
 
         jLabel6.setText("Nom");
 
@@ -481,7 +491,7 @@ public class APP extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JComboBox<String> type;
-    private javax.swing.JComboBox<String> type_up;
+    private javax.swing.JComboBox<ma.fstm.ilisi.gestioncontacts.Model.bo.Type> type;
+    private javax.swing.JComboBox<ma.fstm.ilisi.gestioncontacts.Model.bo.Type> type_up;
     // End of variables declaration//GEN-END:variables
 }
